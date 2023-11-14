@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form {
+            display: none;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            width: 300px;
+        }
+        h1 {
+            font-size: 24px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form" id="login-form">
+            <h1>Login</h1>
+            <form>
+                <input type="text" placeholder="Email" id="login-email">
+                <input type="password" placeholder="Password" id="login-password">
+                <button type="button" onclick="login()">Login</button>
+            </form>
+            <div id="login-result"></div>
+        </div>
+        <div class="form" id="registration-form">
+            <h1>Registration</h1>
+            <form>
+                <input type="text" placeholder="Email" id="registration-email">
+                <input type="password" placeholder="Password" id="registration-password">
+                <button type="button" onclick="register()">Register</button>
+            </form>
+            <div id="registration-result"></div>
+        </div>
+        <div>
+            <button type="button" onclick="showForm('login')">Login</button>
+            <button type="button" onclick="showForm('register')">Register</button>
+        </div>
+    </div>
+    <script>
+        function showForm(formId) {
+            const forms = document.querySelectorAll('.form');
+            forms.forEach(form => form.style.display = 'none');
+            
+            if (formId === 'login') {
+                document.getElementById('login-form').style.display = 'block';
+            } else if (formId === 'register') {
+                document.getElementById('registration-form').style.display = 'block';
+            }
+        }
+
+        function login() {
+            const email = document.getElementById("login-email").value;
+            const password = document.getElementById("login-password").value;
+            
+            const registeredUsers = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
+            const user = registeredUsers.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                document.getElementById("login-result").textContent = "Login successful!";
+            } else {
+                document.getElementById("login-result").textContent = "Invalid Credentials";
+            }
+        }
+
+        function register() {
+            const email = document.getElementById("registration-email").value;
+            const password = document.getElementById("registration-password").value;
+
+            const registeredUsers = JSON.parse(localStorage.getItem("registeredUsers") || "[]");
+            const userExists = registeredUsers.some(u => u.email === email);
+
+            if (userExists) {
+                document.getElementById("registration-result").textContent = "Email already registered.";
+            } else {
+                registeredUsers.push({ email, password });
+                localStorage.setItem("registeredUsers", JSON.stringify(registeredUsers));
+                document.getElementById("registration-result").textContent = "Registration successful!";
+            }
+        }
+    </script>
+</body>
+</html>
