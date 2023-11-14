@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // Nested object
+      const student = {
+        name: "Alice",
+        age: 22,
+        address: {
+          city: "Wonderland",
+          country: "Fantasia",
+        },
+        grades: {
+          math: 90,
+          science: 85,
+        },
+      };
+
+      const { name, age, address: { city, country }, grades: { math, science } } = student;
+
+      console.log(`Name: ${name}`);
+      console.log(`Age: ${age}`);
+      console.log(`Address: ${city}, ${country}`);
+      console.log(`Grades: Math - ${math}, Science - ${science}`);
+
+
+
+
+
+
+
+
+
+      
+
+    //   let student ={
+    //     ajay:[10,20,30]
+    //     shan:[10,20,30]
+    //     ilan:[10,30,30]
+    //   }
+    </script>
+  </body>
+</html>
